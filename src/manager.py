@@ -161,6 +161,10 @@ class Manager:
         year(int),
         month(int)
         Zwraca: List[str] - Lista imion i nazwisk najemców
+        Przykład:
+            >>> manager = Manager(parameters)
+            >>> manager.get_debtors(apartment_key="Mieszkanie_1", year=2023, month=10)
+            ['Jan Kowalski', 'Anna Nowak']
         """
         if month < 1 or month > 12:
             raise ValueError("Month must be between 1 and 12")
@@ -187,7 +191,12 @@ class Manager:
         return output
 
     def calculate_tax(self, year: int, month: int, tax_rate: float) -> float:
-        """Calculate the tax amount based on the total income from transfers."""
+        """Calculate the tax amount based on the total income from transfers.
+        Przykład:
+            >>> manager = Manager(parameters)
+            >>> manager.calculate_tax(year=2023, month=10, tax_rate=0.19)
+            450.0
+        """
         total_income = sum(
             transfer.amount_pln
             for transfer in self.transfers
@@ -214,6 +223,10 @@ class Manager:
         """Oblicza aktualny balans pieniedzy dla danego roku na podstawie przelewów.
         Argumenty: year (int) - rok dla ktorego ma zostac obliczony bilans
         Zwraca: float: roczny bilans.
+        Przykład:
+            >>> manager = Manager(parameters)
+            >>> manager.get_annual_balance(year=2023)
+            14500.50
         """
         total_income = sum(
             transfer.amount_pln
